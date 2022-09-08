@@ -2,15 +2,15 @@
 namespace GDO\Mettwitze;
 
 use GDO\Core\GDO_Module;
-use GDO\DB\GDT_Checkbox;
+use GDO\Core\GDT_Checkbox;
 use GDO\UI\GDT_Link;
 use GDO\UI\GDT_Page;
 
 /**
- * A website for Mettwitze. (gdo6 demo site :)
+ * A website for Mettwitze. (gdo demo site :)
  * 
  * @author gizmore
- * @version 6.11.4
+ * @version 7.0.1
  * @since 6.10.0
  * @see GDO_Mettwitz
  */
@@ -39,12 +39,12 @@ final class Module_Mettwitze extends GDO_Module
 	##############
 	public function getConfig()
 	{
-		return array(
+		return [
 			GDT_Checkbox::make('allow_guest_jokes')->initial('1'),
 			GDT_Checkbox::make('allow_guest_votes')->initial('1'),
 			GDT_Checkbox::make('allow_comments')->initial('1'),
 			GDT_Checkbox::make('allow_guest_comments')->initial('1'),
-		);
+		];
 	}
 	public function cfgGuestJokes() { return $this->getConfigValue('allow_guest_jokes'); }
 	public function cfgGuestVotes() { return $this->getConfigValue('allow_guest_votes'); }
@@ -56,10 +56,10 @@ final class Module_Mettwitze extends GDO_Module
 	#############
 	public function onInitSidebar()
 	{
-	    $bar = GDT_Page::$INSTANCE->topNav;
-		$bar->addField(GDT_Link::make('lbl_mettwitze')->href(href('Mettwitze', 'ListWitze')));
+// 	    $bar = GDT_Page::$INSTANCE->topResponse();
+// 		$bar->addField(GDT_Link::make('lbl_mettwitze')->href(href('Mettwitze', 'ListWitze')));
 
-		$bar = GDT_Page::$INSTANCE->leftNav;
+		$bar = GDT_Page::$INSTANCE->leftBar();
 		$bar->addField(GDT_Link::make('link_add_witz')->href(href('Mettwitze', 'CRUD')));
 		$bar->addField(GDT_Link::make('link_witze_new')->href(href('Mettwitze', 'ListWitze', '&o[order_by]=mw_created&o[order_dir]=DESC')));
 		$bar->addField(GDT_Link::make('link_witze_best')->href(href('Mettwitze', 'ListWitze', '&o[order_by]=mw_rating&o[order_dir]=DESC')));
@@ -71,4 +71,5 @@ final class Module_Mettwitze extends GDO_Module
 	{
 		$this->addJS('js/mettwitze.js');
 	}
+	
 }

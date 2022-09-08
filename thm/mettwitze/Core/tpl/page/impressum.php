@@ -1,3 +1,6 @@
+<?php
+namespace GDO\Mettwitze\thm\mettwitze\Core\tpl\page;
+?>
 <h1 class="ce">Imprint</h1>
 <hr/>
 <div>

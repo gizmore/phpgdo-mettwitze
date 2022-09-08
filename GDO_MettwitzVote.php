@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Mettwitze;
 
-use GDO\Vote\GDO_VoteTable;
+use GDO\Votes\GDO_VoteTable;
 
 final class GDO_MettwitzVote extends GDO_VoteTable
 {

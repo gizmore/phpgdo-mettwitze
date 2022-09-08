@@ -4,14 +4,18 @@ namespace GDO\Mettwitze\Method;
 use GDO\Table\MethodQueryList;
 use GDO\Mettwitze\GDO_Mettwitz;
 use GDO\Core\GDT_Response;
-use GDO\Table\GDT_PageMenu;
 use GDO\UI\GDT_Bar;
 use GDO\UI\GDT_Button;
 use GDO\Table\GDT_Table;
-use GDO\DB\GDT_Object;
-use GDO\Util\Common;
+use GDO\Core\GDT_Object;
 use GDO\Util\Strings;
 
+/**
+ * Display a single Joke as a permalink.
+ * 
+ * @author gizmore
+ * @version 7.0.1
+ */
 final class Witz extends MethodQueryList
 {
 	public function gdoTable() { return GDO_Mettwitz::table(); }
@@ -21,10 +25,7 @@ final class Witz extends MethodQueryList
 	public function isFiltered() { return false; }
 	public function isOrdered() { return false; }
 	
-	/**
-	 * @return GDO_Mettwitz
-	 */
-	private function getWitz()
+	private function getWitz() : GDO_Mettwitz
 	{
 		return $this->gdoParameterValue('id');
 	}
@@ -55,13 +56,13 @@ final class Witz extends MethodQueryList
 	{
 		return [
 			GDT_Object::make('id')->table(GDO_Mettwitz::table())->notNull(),
-			GDT_PageMenu::make('ipp')->ipp('1')->writable(false),
+// 			GDT_PageMenu::make('ipp')->ipp('1')->writable(false),
 		];
 	}
 	
 	public function getQuery()
 	{
-		$id = Common::getRequestInt('id');
+		$id = $this->gdoParameterVar('id');
 		return $this->gdoTable()->select()->first()->where("mw_id=$id");
 	}
 	

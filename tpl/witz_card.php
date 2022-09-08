@@ -1,11 +1,9 @@
 <?php
-use GDO\Mettwitze\GDO_Mettwitz;
+namespace GDO\Mettwitze\tpl;
 use GDO\UI\GDT_Card;
-use GDO\UI\GDT_Headline;
-use GDO\UI\GDT_Paragraph;
 use GDO\UI\GDT_Divider;
 use GDO\UI\GDT_Label;
-/** @var $gdo GDO_Mettwitz **/
+/** @var $gdo \GDO\Mettwitze\GDO_Mettwitz **/
 $card = GDT_Card::make()->gdo($gdo);
 $card->creatorHeader();
 $card->addFields(array(

@@ -1,10 +1,10 @@
 <?php
+namespace GDO\Mettwitze\tpl;
 use GDO\Mettwitze\GDO_Mettwitz;
 use GDO\User\GDO_User;
-use GDO\Vote\GDT_VotePopup;
+use GDO\Votes\GDT_VotePopup;
 use GDO\UI\GDT_EditButton;
 /** @var $gdo GDO_Mettwitz **/
-$gdo instanceof GDO_Mettwitz;
 $id = $gdo->getID();
 $user = GDO_User::current();
 $q = seo($gdo->displayQuestion());

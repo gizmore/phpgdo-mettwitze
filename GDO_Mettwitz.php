@@ -1,19 +1,25 @@
 <?php
 namespace GDO\Mettwitze;
 
-use GDO\Comment\CommentedObject;
+use GDO\Comments\CommentedObject;
 use GDO\Core\GDO;
-use GDO\DB\GDT_AutoInc;
-use GDO\DB\GDT_CreatedAt;
-use GDO\DB\GDT_CreatedBy;
-use GDO\DB\GDT_String;
-use GDO\Vote\GDT_VoteCount;
-use GDO\Vote\GDT_VoteRating;
-use GDO\Vote\WithVotes;
+use GDO\Core\GDT_AutoInc;
+use GDO\Core\GDT_CreatedAt;
+use GDO\Core\GDT_CreatedBy;
+use GDO\Core\GDT_String;
+use GDO\Votes\GDT_VoteCount;
+use GDO\Votes\GDT_VoteRating;
+use GDO\Votes\WithVotes;
 use GDO\User\GDO_User;
 use GDO\Core\GDT_Template;
 use GDO\Date\Time;
 
+/**
+ * A mettwitz entity.
+ * 
+ * @author gizmore
+ * @version 7.0.1
+ */
 final class GDO_Mettwitz extends GDO
 {
 	################
@@ -36,7 +42,7 @@ final class GDO_Mettwitz extends GDO
 	###########
 	public function gdoColumns()
 	{
-		return array(
+		return [
 			GDT_AutoInc::make('mw_id'),
 			GDT_String::make('mw_question')->notNull()->min(4)->max(2048),
 			GDT_String::make('mw_answer')->notNull()->min(4)->max(2048),
@@ -44,7 +50,7 @@ final class GDO_Mettwitz extends GDO
 			GDT_CreatedBy::make('mw_creator'),
 			GDT_VoteCount::make('mw_votes'),
 			GDT_VoteRating::make('mw_rating'),
-		);
+		];
 	}
 	
 	############
@@ -63,10 +69,7 @@ final class GDO_Mettwitz extends GDO
 	##############
 	### Getter ###
 	##############
-	/**
-	 * @return GDO_User
-	 */
-	public function getCreator() { return $this->getValue('mw_creator'); }
+	public function getCreator() : GDO_User { return $this->getValue('mw_creator'); }
 	public function getCreatorId() { return $this->getVar('mw_creator'); }
 	public function getCreated() { return $this->getVar('mw_created'); }
 	
@@ -79,11 +82,12 @@ final class GDO_Mettwitz extends GDO
 	##############
 	public function renderList()
 	{
-		return GDT_Template::php('Mettwitze', 'witz/list.php', ['gdo' => $this]);
+		return GDT_Template::php('Mettwitze', 'witz_list.php', ['gdo' => $this]);
 	}
 
 	public function renderCard()
 	{
-		return GDT_Template::php('Mettwitze', 'witz/card.php', ['gdo' => $this]);
+		return GDT_Template::php('Mettwitze', 'witz_card.php', ['gdo' => $this]);
 	}
+
 }

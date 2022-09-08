@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Mettwitze;
 
-use GDO\Comment\GDO_CommentTable;
+use GDO\Comments\GDO_CommentTable;
 use GDO\User\GDO_User;
 
 final class GDO_MettwitzComments extends GDO_CommentTable
