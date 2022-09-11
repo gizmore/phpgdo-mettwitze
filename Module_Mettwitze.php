@@ -21,10 +21,10 @@ final class Module_Mettwitze extends GDO_Module
 	##############
 	public $module_priority = 90; # init very late. 50 is default. 10 for core stuff like jquery or db / core / log.
 	
-	public function getTheme() { return 'mettwitze'; } # own theme for tpl overrides @see thm folder.
-	public function onLoadLanguage() { return $this->loadLanguage('lang/mettwitze'); }
-	public function getDependencies() { return ['BootstrapTheme', 'JQueryAutocomplete', 'Comment', 'Vote', 'Login', 'Register', 'Admin', 'Recovery', 'Account', 'Profile', 'Sitemap']; }
-	public function getClasses()
+	public function getTheme() : ?string { return 'mettwitze'; } # own theme for tpl overrides @see thm folder.
+	public function onLoadLanguage() : void {  $this->loadLanguage('lang/mettwitze'); }
+	public function getDependencies() : array { return ['BootstrapTheme', 'JQueryAutocomplete', 'Comment', 'Vote', 'Login', 'Register', 'Admin', 'Recovery', 'Account', 'Profile', 'Sitemap']; }
+	public function getClasses() : array
 	{
 		# Entity tables
 		return [
@@ -37,7 +37,7 @@ final class Module_Mettwitze extends GDO_Module
 	##############
 	### Config ###
 	##############
-	public function getConfig()
+	public function getConfig() : array
 	{
 		return [
 			GDT_Checkbox::make('allow_guest_jokes')->initial('1'),
@@ -54,7 +54,7 @@ final class Module_Mettwitze extends GDO_Module
 	#############
 	### Hooks ###
 	#############
-	public function onInitSidebar()
+	public function onInitSidebar() : void
 	{
 // 	    $bar = GDT_Page::$INSTANCE->topResponse();
 // 		$bar->addField(GDT_Link::make('lbl_mettwitze')->href(href('Mettwitze', 'ListWitze')));
@@ -67,7 +67,7 @@ final class Module_Mettwitze extends GDO_Module
 		$bar->addField(GDT_Link::make('link_witze_all')->href(href('Mettwitze', 'ListWitze', '&o[order_by]=mw_created&o[order_dir]=ASC')));
 	}
 	
-	public function onIncludeScripts()
+	public function onIncludeScripts() : void
 	{
 		$this->addJS('js/mettwitze.js');
 	}
