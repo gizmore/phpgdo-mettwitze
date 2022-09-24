@@ -8,29 +8,30 @@ use GDO\Table\GDT_PageMenu;
 use GDO\UI\GDT_Bar;
 use GDO\UI\GDT_Button;
 use GDO\Table\GDT_Table;
+use GDO\DB\Query;
 
 final class Random extends MethodQueryList
 {
 	public function gdoTable() { return GDO_Mettwitz::table(); }
-	public function isPaginated() { return false; }
+	public function isPaginated() : bool { return false; }
 	
-	public function isSearched() { return false; }
-	public function isFiltered() { return false; }
-	public function isOrdered() { return false; }
+	public function isSearched() : bool { return false; }
+	public function isFiltered() : bool { return false; }
+	public function isOrdered() : bool { return false; }
 	
-	protected function setupTitle(GDT_Table $list)
-	{
-		$list->title(t('list_random', [$this->gdoParameter('ipp')->ipp]));
-	}
+// 	protected function setupTitle(GDT_Table $list)
+// 	{
+// 		$list->title(t('list_random', [$this->gdoParameter('ipp')->ipp]));
+// 	}
 
-	public function gdoParameters()
+	public function gdoParameters() : array
 	{
 		return array(
 			GDT_PageMenu::make('ipp')->ipp('1'),
 		);
 	}
 	
-	public function getQuery()
+	public function getQuery() : Query
 	{
 		return $this->gdoTable()->select()->first()->order("rand()");
 	}

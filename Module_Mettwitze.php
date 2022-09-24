@@ -19,11 +19,20 @@ final class Module_Mettwitze extends GDO_Module
 	##############
 	### Module ###
 	##############
-	public $module_priority = 90; # init very late. 50 is default. 10 for core stuff like jquery or db / core / log.
+	public $module_priority = 120; # init very late. 50 is default. 10 for core stuff like jquery or db / core / log.
 	
 	public function getTheme() : ?string { return 'mettwitze'; } # own theme for tpl overrides @see thm folder.
 	public function onLoadLanguage() : void {  $this->loadLanguage('lang/mettwitze'); }
-	public function getDependencies() : array { return ['BootstrapTheme', 'JQueryAutocomplete', 'Comment', 'Vote', 'Login', 'Register', 'Admin', 'Recovery', 'Account', 'Profile', 'Sitemap']; }
+	public function getDependencies() : array
+	{
+		return [
+			'Account', 'Admin',
+			'Bootstrap5Theme',
+			'Comments', 'JQueryAutocomplete',
+			'Login', 'Register', 'Recovery',
+			'Sitemap', 'Votes',
+		];
+	}
 	public function getClasses() : array
 	{
 		# Entity tables
@@ -56,9 +65,6 @@ final class Module_Mettwitze extends GDO_Module
 	#############
 	public function onInitSidebar() : void
 	{
-// 	    $bar = GDT_Page::$INSTANCE->topResponse();
-// 		$bar->addField(GDT_Link::make('lbl_mettwitze')->href(href('Mettwitze', 'ListWitze')));
-
 		$bar = GDT_Page::$INSTANCE->leftBar();
 		$bar->addField(GDT_Link::make('link_add_witz')->href(href('Mettwitze', 'CRUD')));
 		$bar->addField(GDT_Link::make('link_witze_new')->href(href('Mettwitze', 'ListWitze', '&o[order_by]=mw_created&o[order_dir]=DESC')));

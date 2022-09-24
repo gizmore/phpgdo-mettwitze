@@ -11,8 +11,8 @@ use GDO\Mail\Mail;
 
 final class CRUD extends MethodCrud
 {
-	public function gdoTable() { return GDO_Mettwitz::table(); }
-	public function hrefList() { return href('Mettwitze', 'ListWitze'); }
+	public function gdoTable() : GDO { return GDO_Mettwitz::table(); }
+	public function hrefList() : string { return href('Mettwitze', 'ListWitze'); }
 
 	public function canCreate(GDO $table) { return GDO_User::current()->isMember() || Module_Mettwitze::instance()->cfgGuestJokes(); }
 	public function canDelete(GDO $gdo) { return GDO_User::current()->isStaff(); }
@@ -44,7 +44,7 @@ final class CRUD extends MethodCrud
 		$mail = Mail::botMail();
 		$mail->setSubject(tusr($user, 'mail_subj_new_mettwitz'));
 		$tVars = array(
-			$user->displayNameLabel(),
+			$user->renderUserName(),
 			$gdo->displayQuestion(),
 			$gdo->displayAnswer(),
 			sitename(),

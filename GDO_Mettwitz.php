@@ -40,7 +40,7 @@ final class GDO_Mettwitz extends GDO
 	###########
 	### GDO ###
 	###########
-	public function gdoColumns()
+	public function gdoColumns() : array
 	{
 		return [
 			GDT_AutoInc::make('mw_id'),
@@ -74,18 +74,18 @@ final class GDO_Mettwitz extends GDO
 	public function getCreated() { return $this->getVar('mw_created'); }
 	
 	public function displayAge() { return Time::displayAge($this->getCreated()); }
-	public function displayQuestion() { return $this->display('mw_question'); }
-	public function displayAnswer() { return $this->display('mw_answer'); }
+	public function displayQuestion() { return $this->gdoDisplay('mw_question'); }
+	public function displayAnswer() { return $this->gdoDisplay('mw_answer'); }
 
 	##############
 	### Render ###
 	##############
-	public function renderList()
+	public function renderList() : string
 	{
 		return GDT_Template::php('Mettwitze', 'witz_list.php', ['gdo' => $this]);
 	}
 
-	public function renderCard()
+	public function renderCard() : string
 	{
 		return GDT_Template::php('Mettwitze', 'witz_card.php', ['gdo' => $this]);
 	}

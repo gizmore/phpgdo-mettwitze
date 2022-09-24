@@ -17,7 +17,7 @@ $hrefComments = href('Mettwitze', 'ListComments', "&id={$id}");
  onclick="GDO.Mettwitze.revealJoke('<?=$gdo->getID()?>')"
  class="list-group-item list-group-item-action flex-column align-items-start">
   <div class=" w-100 justify-content-between">
-    <small class="text-muted fr"><?=t('witz_meta', [$gdo->displayAge(), $gdo->getCreator()->displayNameLabel()])?></small>
+    <small class="text-muted fr"><?=t('witz_meta', [$gdo->displayAge(), $gdo->getCreator()->renderUserName()])?></small>
     <?=GDT_VotePopup::make()->gdo($gdo)->renderCell()?>
   </div>
   <span class="cb"></span>
