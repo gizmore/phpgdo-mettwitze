@@ -27,7 +27,7 @@ final class Module_Mettwitze extends GDO_Module
 	{
 		return [
 			'Account', 'Admin',
-			'Bootstrap5Theme',
+			'Bootstrap5Theme', 'Classic',
 			'Comments', 'JQueryAutocomplete',
 			'Login', 'Register', 'Recovery',
 			'Sitemap', 'Votes',

@@ -32,22 +32,22 @@ final class MettwitzeTest extends TestCase
             'mw_question' => 'Mettwitz 1 - Frage 1',
             'mw_answer' => 'Mettwitz 1 - Antwort 1',
         ];
-        GDT_MethodTest::make()->method($m)->parameters($p)->execute('create');
-        $this->assert200("Test if Mettwitz can be created.");
+        GDT_MethodTest::make()->method($m)->inputs($p)->execute('create');
+        $this->assertOK("Test if Mettwitz can be created.");
         
         $p = [
             'mw_question' => 'Mettwitz 2 - Frage 2',
             'mw_answer' => 'Mettwitz 2 - Antwort 2',
         ];
-        GDT_MethodTest::make()->method($m)->parameters($p)->execute('create');
-        $this->assert200("Test if Mettwitz 2 can be created.");
+        GDT_MethodTest::make()->method($m)->inputs($p)->execute('create');
+        $this->assertOK("Test if Mettwitz 2 can be created.");
         
         $p = [
             'mw_question' => 'Mettwitz 3 - Frage 3',
             'mw_answer' => 'Mettwitz 3 - Antwort 3',
         ];
-        GDT_MethodTest::make()->method($m)->parameters($p)->execute('create');
-        $this->assert200("Test if Mettwitz 3 can be created.");
+        GDT_MethodTest::make()->method($m)->inputs($p)->execute('create');
+        $this->assertOK("Test if Mettwitz 3 can be created.");
         
         $count = GDO_Mettwitz::table()->countWhere();
         assertEquals(3, $count, 'Test if 3 Mettwitze can be created.');
@@ -67,8 +67,7 @@ final class MettwitzeTest extends TestCase
                 'page' => 1,
             ],
         ];
-        $p = [];
-        $r = GDT_MethodTest::make()->method($m)->parameters($p)->getParameters($gp)->execute();
+        $r = GDT_MethodTest::make()->method($m)->inputs($gp)->execute();
         $html = $r->render();
         assertStringContainsString('Mettwitz 2', $html);
         assertStringContainsString('Frage 2', $html);
@@ -81,7 +80,7 @@ final class MettwitzeTest extends TestCase
                 'page' => 2,
             ],
         ];
-        $r = GDT_MethodTest::make()->method($m)->parameters($p)->getParameters($gp);
+        $r = GDT_MethodTest::make()->method($m)->inputs($gp);
         $r = $r->execute();
         $html = $r->render();
         assertStringContainsString('Mettwitz 3', $html);
@@ -98,7 +97,7 @@ final class MettwitzeTest extends TestCase
                 'search' => 'Frage 3',
             ], 
         ];
-        $r = GDT_MethodTest::make()->method($m)->getParameters($gp)->execute();
+        $r = GDT_MethodTest::make()->method($m)->inputs($gp)->execute();
         $html = $r->render();
         assertTrue(strpos($html, "Frage 1") === false, "Search does not find question 1.");
         assertTrue(strpos($html, "Frage 2") === false, "Search does not find question 2.");
