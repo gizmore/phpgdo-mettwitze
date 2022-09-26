@@ -5,14 +5,14 @@ return [
 	'keywords' => 'Mett,Mettwitze,Hackwitze,Jokes,Fun,Funny,German Meatjokes',
 	
 	# List
-	'mtitle_mettwitze_listwitze' => 'Mettwitze',
+	'mt_mettwitze_listwitze' => 'Mettwitze',
 	'mdescr_mettwitze_listwitze' => 'Eine Sammlung der neuesten und besten Mettwitze. Nur in Deutsch! Klicke einen Eintrag an um die Antwort zu sehen.',
 	
 	# Random
-	'mtitle_mettwitze_random' => 'Ein zufälliger Mettwitz',
+	'mt_mettwitze_random' => 'Ein zufälliger Mettwitz',
 	
 	# Comments
-	'mtitle_mettwitze_listcomments' => 'Kommentare',
+	'mt_mettwitze_listcomments' => 'Kommentare',
 	
 	'lbl_mettwitze' => 'Mettwitze',
 	'link_witze_new' => 'Neueste Mettwitze',
