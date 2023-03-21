@@ -8,22 +8,25 @@ use GDO\UI\GDT_Page;
 
 /**
  * A website for Mettwitze. (gdo demo site :)
- * 
- * @author gizmore
+ *
  * @version 7.0.1
  * @since 6.10.0
+ * @author gizmore
  * @see GDO_Mettwitz
  */
 final class Module_Mettwitze extends GDO_Module
 {
+
 	##############
 	### Module ###
 	##############
 	public $module_priority = 120; # init very late. 50 is default. 10 for core stuff like jquery or db / core / log.
-	
-	public function getTheme() : ?string { return 'mettwitze'; } # own theme for tpl overrides @see thm folder.
-	public function onLoadLanguage() : void {  $this->loadLanguage('lang/mettwitze'); }
-	public function getDependencies() : array
+
+	public function getTheme(): ?string { return 'mettwitze'; } # own theme for tpl overrides @see thm folder.
+
+	public function onLoadLanguage(): void { $this->loadLanguage('lang/mettwitze'); }
+
+	public function getDependencies(): array
 	{
 		return [
 			'Account', 'Admin',
@@ -33,20 +36,21 @@ final class Module_Mettwitze extends GDO_Module
 			'Sitemap', 'Votes',
 		];
 	}
-	public function getClasses() : array
+
+	public function getClasses(): array
 	{
 		# Entity tables
 		return [
-		    GDO_Mettwitz::class,
-		    GDO_MettwitzVote::class,
-		    GDO_MettwitzComments::class,
+			GDO_Mettwitz::class,
+			GDO_MettwitzVote::class,
+			GDO_MettwitzComments::class,
 		];
 	}
-	
+
 	##############
 	### Config ###
 	##############
-	public function getConfig() : array
+	public function getConfig(): array
 	{
 		return [
 			GDT_Checkbox::make('allow_guest_jokes')->initial('1'),
@@ -55,15 +59,8 @@ final class Module_Mettwitze extends GDO_Module
 			GDT_Checkbox::make('allow_guest_comments')->initial('1'),
 		];
 	}
-	public function cfgGuestJokes() { return $this->getConfigValue('allow_guest_jokes'); }
-	public function cfgGuestVotes() { return $this->getConfigValue('allow_guest_votes'); }
-	public function cfgComments() { return $this->getConfigValue('allow_comments'); }
-	public function cfgGuestComments() { return $this->getConfigValue('allow_guest_comments'); }
-	
-	#############
-	### Hooks ###
-	#############
-	public function onInitSidebar() : void
+
+	public function onInitSidebar(): void
 	{
 		$bar = GDT_Page::$INSTANCE->leftBar();
 		$bar->addField(GDT_Link::make('link_add_witz')->href(href('Mettwitze', 'CRUD')));
@@ -72,10 +69,22 @@ final class Module_Mettwitze extends GDO_Module
 		$bar->addField(GDT_Link::make('link_witze_rand')->href(href('Mettwitze', 'Random')));
 		$bar->addField(GDT_Link::make('link_witze_all')->href(href('Mettwitze', 'ListWitze', '&o[order_by]=mw_created&o[order_dir]=ASC')));
 	}
-	
-	public function onIncludeScripts() : void
+
+	public function onIncludeScripts(): void
 	{
 		$this->addJS('js/mettwitze.js');
 	}
-	
+
+	public function cfgGuestJokes() { return $this->getConfigValue('allow_guest_jokes'); }
+
+	public function cfgGuestVotes() { return $this->getConfigValue('allow_guest_votes'); }
+
+	#############
+	### Hooks ###
+	#############
+
+	public function cfgComments() { return $this->getConfigValue('allow_comments'); }
+
+	public function cfgGuestComments() { return $this->getConfigValue('allow_guest_comments'); }
+
 }

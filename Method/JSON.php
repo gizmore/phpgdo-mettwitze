@@ -5,10 +5,8 @@ use GDO\Core\MethodAjax;
 
 final class JSON extends MethodAjax
 {
-	public function execute()
-	{
-		
-	}
 
-	
+	public function execute() {}
+
+
 }

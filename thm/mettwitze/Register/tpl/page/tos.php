@@ -4,7 +4,7 @@ namespace GDO\Mettwitze\thm\mettwitze\Register\tpl\page;
 <h1>Terms of Service</h1>
 
 <div class="gdo-default-hint-to-hide">
-  <h2>About this Website</h2>
+    <h2>About this Website</h2>
 </div>
 
 <h3>Abuse of service</h3>
