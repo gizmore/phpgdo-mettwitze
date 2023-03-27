@@ -1,9 +1,15 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Mettwitze\lang;
-
 return [
 	# Global
 	'keywords' => 'Mett,Mettwitze,Hackwitze,Jokes,Fun,Funny,German Meatjokes',
+	'module_mettwitze' => 'Mettwitze',
+
+	'cfg_allow_guest_jokes' => 'Allow Guest Jokes?',
+	'cfg_allow_guest_votes' => 'Allow Guest Votes?',
+	'cfg_allow_comments' => 'Allow Comments?',
+	'cfg_allow_guest_comments' => 'Allow Guest Comments?',
 
 	# List
 	'mt_mettwitze_listwitze' => 'Mettwitze',

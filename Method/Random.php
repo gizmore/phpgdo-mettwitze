@@ -1,6 +1,8 @@
 <?php
 namespace GDO\Mettwitze\Method;
 
+use GDO\Core\GDO;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Response;
 use GDO\DB\Query;
 use GDO\Mettwitze\GDO_Mettwitz;
@@ -12,7 +14,7 @@ use GDO\UI\GDT_Button;
 final class Random extends MethodQueryList
 {
 
-	public function gdoTable() { return GDO_Mettwitz::table(); }
+	public function gdoTable(): GDO { return GDO_Mettwitz::table(); }
 
 	public function isPaginated(): bool { return false; }
 
@@ -39,7 +41,7 @@ final class Random extends MethodQueryList
 		return $this->gdoTable()->select()->first()->order('rand()');
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		$more = GDT_Response::makeWith(
 			GDT_Bar::make()->horizontal()->addField(

@@ -1,6 +1,8 @@
 <?php
 namespace GDO\Mettwitze\Method;
 
+use GDO\Core\GDO;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Object;
 use GDO\Core\GDT_Response;
 use GDO\DB\Query;
@@ -19,7 +21,7 @@ use GDO\Util\Strings;
 final class Witz extends MethodQueryList
 {
 
-	public function gdoTable() { return GDO_Mettwitz::table(); }
+	public function gdoTable(): GDO { return GDO_Mettwitz::table(); }
 
 	public function isPaginated(): bool { return false; }
 
@@ -70,7 +72,7 @@ final class Witz extends MethodQueryList
 		return $this->gdoTable()->select()->first()->where("mw_id=$id");
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		$more = GDT_Response::makeWith(
 			GDT_Bar::make()->horizontal()->addField(

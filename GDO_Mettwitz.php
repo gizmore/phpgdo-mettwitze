@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Mettwitze;
 
 use GDO\Comments\CommentedObject;
@@ -17,8 +18,7 @@ use GDO\Votes\WithVotes;
 /**
  * A mettwitz entity.
  *
- * @version 7.0.1
- * @author gizmore
+ * @version 7.0.3
  */
 final class GDO_Mettwitz extends GDO
 {
@@ -32,7 +32,7 @@ final class GDO_Mettwitz extends GDO
 
 	public function gdoCommentsEnabled() { return Module_Mettwitze::instance()->cfgComments(); }
 
-	public function gdoCanComment(GDO_User $user) { return $user->isMember() || Module_Mettwitze::instance()->cfgGuestComments(); }
+	public function gdoCanComment(GDO_User $user): bool { return $user->isMember() || Module_Mettwitze::instance()->cfgGuestComments(); }
 
 	public function gdoCommentHrefEdit() { return href('Mettwitze', 'EditComment'); }
 
@@ -59,9 +59,9 @@ final class GDO_Mettwitz extends GDO
 		];
 	}
 
-	############
-	### Perm ###
-	############
+	##############
+	### Render ###
+	##############
 
 	public function renderList(): string
 	{
@@ -87,13 +87,13 @@ final class GDO_Mettwitz extends GDO
 		return href('Mettwitze', 'CRUD', '&id=' . $this->getID());
 	}
 
-	public function getCreator(): GDO_User { return $this->getValue('mw_creator'); }
+	public function getCreator(): GDO_User { return $this->gdoValue('mw_creator'); }
 
-	public function getCreatorId() { return $this->getVar('mw_creator'); }
+	public function getCreatorId() { return $this->gdoVar('mw_creator'); }
 
 	public function displayAge() { return Time::displayAge($this->getCreated()); }
 
-	public function getCreated() { return $this->getVar('mw_created'); }
+	public function getCreated() { return $this->gdoVar('mw_created'); }
 
 	##############
 	### Render ###

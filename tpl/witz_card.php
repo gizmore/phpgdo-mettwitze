@@ -9,7 +9,7 @@ use GDO\UI\GDT_Label;
 /** @var $gdo GDO_Mettwitz * */
 $card = GDT_Card::make()->gdo($gdo);
 $card->creatorHeader();
-$card->addFields([
+$card->addFields(
 	GDT_Label::make('mw_question'),
 	GDT_Label::make()->labelRaw($gdo->displayQuestion()),
 	GDT_Label::make('mw_answer'),
@@ -17,5 +17,5 @@ $card->addFields([
 	GDT_Divider::make(),
 	$gdo->getVoteCountColumn(),
 	$gdo->getVoteRatingColumn(),
-]);
+);
 echo $card->render();

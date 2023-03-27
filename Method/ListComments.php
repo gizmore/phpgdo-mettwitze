@@ -2,6 +2,7 @@
 namespace GDO\Mettwitze\Method;
 
 use GDO\Comments\Comments_List;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Response;
 use GDO\Mettwitze\GDO_MettwitzComments;
 use GDO\UI\GDT_Bar;
@@ -26,7 +27,7 @@ final class ListComments extends Comments_List
 		return GDO_MettwitzComments::table();
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		$link = GDT_Link::make('btn_write_comment')->href($this->hrefAdd());
 		$bar = GDT_Bar::make()->horizontal()->addField($link);

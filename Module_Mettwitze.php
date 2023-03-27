@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Mettwitze;
 
 use GDO\Core\GDO_Module;
@@ -9,7 +10,7 @@ use GDO\UI\GDT_Page;
 /**
  * A website for Mettwitze. (gdo demo site :)
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @since 6.10.0
  * @author gizmore
  * @see GDO_Mettwitz
@@ -20,7 +21,7 @@ final class Module_Mettwitze extends GDO_Module
 	##############
 	### Module ###
 	##############
-	public $module_priority = 120; # init very late. 50 is default. 10 for core stuff like jquery or db / core / log.
+	public int $priority = 120; # init very late. 50 is default. 10 for core stuff like jquery or db / core / log.
 
 	public function getTheme(): ?string { return 'mettwitze'; } # own theme for tpl overrides @see thm folder.
 
@@ -29,11 +30,17 @@ final class Module_Mettwitze extends GDO_Module
 	public function getDependencies(): array
 	{
 		return [
-			'Account', 'Admin',
-			'Bootstrap5Theme', 'Classic',
-			'Comments', 'JQueryAutocomplete',
-			'Login', 'Register', 'Recovery',
-			'Sitemap', 'Votes',
+			'Account',
+			'Admin',
+			'Bootstrap5Theme',
+			'Classic',
+			'Comments',
+			'JQueryAutocomplete',
+			'Login',
+			'Recovery',
+			'Register',
+			'Sitemap',
+			'Votes',
 		];
 	}
 
@@ -75,16 +82,12 @@ final class Module_Mettwitze extends GDO_Module
 		$this->addJS('js/mettwitze.js');
 	}
 
-	public function cfgGuestJokes() { return $this->getConfigValue('allow_guest_jokes'); }
+	public function cfgGuestJokes(): string { return $this->getConfigVar('allow_guest_jokes'); }
 
-	public function cfgGuestVotes() { return $this->getConfigValue('allow_guest_votes'); }
+	public function cfgGuestVotes(): string { return $this->getConfigVar('allow_guest_votes'); }
 
-	#############
-	### Hooks ###
-	#############
+	public function cfgComments(): string { return $this->getConfigVar('allow_comments'); }
 
-	public function cfgComments() { return $this->getConfigValue('allow_comments'); }
-
-	public function cfgGuestComments() { return $this->getConfigValue('allow_guest_comments'); }
+	public function cfgGuestComments(): string { return $this->getConfigVar('allow_guest_comments'); }
 
 }

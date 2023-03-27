@@ -1,15 +1,16 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Mettwitze\Test;
 
 use GDO\Mettwitze\GDO_Mettwitz;
+use GDO\Mettwitze\GDO_MettwitzComments;
+use GDO\Mettwitze\Method\AddComment;
 use GDO\Mettwitze\Method\CRUD;
 use GDO\Mettwitze\Method\ListWitze;
 use GDO\Table\Module_Table;
 use GDO\Tests\GDT_MethodTest;
 use GDO\Tests\TestCase;
-use function PHPUnit\Framework\assertContains;
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertGreaterThanOrEqual;
 use function PHPUnit\Framework\assertStringContainsString;
 use function PHPUnit\Framework\assertTrue;
 
@@ -19,7 +20,7 @@ use function PHPUnit\Framework\assertTrue;
  * - Pagemenu
  * - BigSearch
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @since 6.9.2
  * @author gizmore
  */
@@ -54,6 +55,18 @@ final class MettwitzeTest extends TestCase
 		assertEquals(3, $count, 'Test if 3 Mettwitze can be created.');
 	}
 
+	public function testComments(): void
+	{
+		$p = [
+			'id' => '1',
+			'comment_message' => 'This is a test comment.',
+		];
+		$m = GDT_MethodTest::make()->method(AddComment::make())->inputs($p);
+		$m->execute('submit');
+		$this->assertOK('Test if comments can be added.');
+		$this->assertGreaterThanOrEqual(1, GDO_MettwitzComments::table()->countWhere(), 'Test if mettwitze comments get persisted.');
+	}
+
 	public function testPagemenu()
 	{
 		$mt = Module_Table::instance();
@@ -64,45 +77,38 @@ final class MettwitzeTest extends TestCase
 
 		$m = ListWitze::make();
 		$gp = [
-			'o1' => [
-				'page' => 1,
-			],
+			'page' => '1',
 		];
 		$r = GDT_MethodTest::make()->method($m)->inputs($gp)->execute();
-		$html = $r->render();
+		$html = $r->renderWebsite();
 		assertStringContainsString('Mettwitz 2', $html);
 		assertStringContainsString('Frage 2', $html);
 		assertStringContainsString(' rel="next"', $html);
 
 		$m = ListWitze::make();
-		$o1 = $m->getHeaderName();
 		$gp = [
-			$o1 => [
-				'page' => 2,
-			],
+			'page' => '2',
 		];
 		$r = GDT_MethodTest::make()->method($m)->inputs($gp);
 		$r = $r->execute();
-		$html = $r->render();
+		$html = $r->renderWebsite();
 		assertStringContainsString('Mettwitz 3', $html);
 		assertStringContainsString('Frage 3', $html);
 		assertStringContainsString(' rel="prev"', $html);
+		self::assertStringNotContainsString('Mettwitz 2', $html);
 	}
 
 	public function testBigSearch()
 	{
 		$m = ListWitze::make();
-		$o1 = $m->getHeaderName();
 		$gp = [
-			$o1 => [
-				'search' => 'Frage 3',
-			],
+			'search' => 'Frage 3',
 		];
 		$r = GDT_MethodTest::make()->method($m)->inputs($gp)->execute();
-		$html = $r->render();
-		assertTrue(strpos($html, 'Frage 1') === false, 'Search does not find question 1.');
-		assertTrue(strpos($html, 'Frage 2') === false, 'Search does not find question 2.');
-		assertTrue(strpos($html, 'Frage 3') !== false, 'Search does find question 3.');
+		$html = $r->renderWebsite();
+		assertTrue(!str_contains($html, 'Frage 1'), 'Search does not find question 1.');
+		assertTrue(!str_contains($html, 'Frage 2'), 'Search does not find question 2.');
+		assertTrue(str_contains($html, 'Frage 3'), 'Search does find question 3.');
 	}
 
 }

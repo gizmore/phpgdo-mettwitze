@@ -16,11 +16,11 @@ final class CRUD extends MethodCrud
 
 	public function hrefList(): string { return href('Mettwitze', 'ListWitze'); }
 
-	public function canCreate(GDO $table) { return GDO_User::current()->isMember() || Module_Mettwitze::instance()->cfgGuestJokes(); }
+	public function canCreate(GDO $table): bool { return GDO_User::current()->isMember() || Module_Mettwitze::instance()->cfgGuestJokes(); }
 
-	public function canDelete(GDO $gdo) { return GDO_User::current()->isStaff(); }
+	public function canDelete(GDO $gdo): bool { return GDO_User::current()->isStaff(); }
 
-	public function canUpdate(GDO $gdo)
+	public function canUpdate(GDO $gdo): bool
 	{
 		$user = GDO_User::current();
 		if ($user->isStaff())
@@ -30,7 +30,7 @@ final class CRUD extends MethodCrud
 		return $gdo->getCreator() === $user;
 	}
 
-	public function afterCreate(GDT_Form $form, GDO $gdo)
+	public function afterCreate(GDT_Form $form, GDO $gdo): void
 	{
 		$this->sendMails($form, $gdo);
 	}
