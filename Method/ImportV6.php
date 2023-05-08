@@ -28,7 +28,7 @@ final class ImportV6 extends MethodForm
 		return GDO_Permission::ADMIN;
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
 			GDT_AntiCSRF::make(),
