@@ -35,6 +35,7 @@ final class Module_Mettwitze extends GDO_Module
 			'Bootstrap5Theme',
 			'Classic',
 			'Comments',
+            'GDO6DB',
 			'JQueryAutocomplete',
 			'Login',
 			'Recovery',
