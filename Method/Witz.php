@@ -66,7 +66,7 @@ final class Witz extends MethodQueryList
 		];
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
 		$id = $this->gdoParameterVar('id');
 		return $this->gdoTable()->select()->first()->where("mw_id=$id");
